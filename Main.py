@@ -87,20 +87,20 @@ def main():
         print("5. Exit")
 
         choice = input("Enter your choice (1-5): ")
-
-        if choice == '1':
-            add_task()
-        elif choice == '2':
-            viewtask()
-        elif choice == '3':
-            delete_task()
-        elif choice == '4':
-            mark_complete_task()
-        elif choice == '5':
-            save_tasks()
-            print("Exiting to-do list application. Goodbye!")
-            break
-        else:
-            print("Invalid choice. Please enter a number between 1 and 5.")
+        match choice:
+            case '1':
+                add_task()
+            case '2':
+                viewtask()
+            case '3':
+                delete_task()
+            case '4':
+                mark_complete_task()
+            case '5':
+                save_tasks()
+                print("Exiting to-do list application. Goodbye!")
+                break
+            case _:
+                print("Invalid choice. Please enter a number between 1 and 5.")
 
 main()
