@@ -26,11 +26,38 @@ def add_task():
         print("invalid input")
         return add_task()
     
-    task_append_confirmation = input("Are you sure you want to add this?(yes or no)")
+    task_append_confirmation = input("Are you sure you want to add this(yes or no)?: ")
+    
     match task_append_confirmation.lower():
         case "yes":
-            new_task_dict = {'description': new_task_desc, 'done': False}
-            tasks.append(new_task_dict)
+            print("\n--- Priority List ---")
+            print("1. Low")
+            print("2. Medium")
+            print("3. High")
+            choice = input("Whats the priority of this task(Enter a number from the list)?: ")
+            match choice:
+                case  "1":
+                    priority = "Low"
+                    new_task_dict = {'description': new_task_desc, 'done': False, 'priority': priority }
+                    print("Task added.")
+                    tasks.append(new_task_dict)
+                    
+                case  "2":
+                    priority = "Medium"
+                    new_task_dict = {'description': new_task_desc, 'done': False, 'priority': priority }
+                    print("Task added.")
+                    tasks.append(new_task_dict)
+                    
+                case  "3":
+                    priority = "High"
+                    new_task_dict = {'description': new_task_desc, 'done': False, 'priority': priority }
+                    print("Task added.")
+                    tasks.append(new_task_dict)
+                case _:
+                    print("Invalid input, enter a number.")
+
+                    
+            
         case "no":
             print("Task not added.")
             return
@@ -46,7 +73,7 @@ def viewtask():
         print("\n--- Your To-Do List ---")
         for i, task in enumerate(tasks):
             status = "[X]" if task['done'] else "[ ]"
-            print(f"{i + 1}. {status} {task['description']}")
+            print(f"{i + 1}. {status} {task['description']} - Priority : {task['priority']}")
         print("-----------------------\n")
 
 def delete_task():
