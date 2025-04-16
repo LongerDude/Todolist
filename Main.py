@@ -21,8 +21,22 @@ load_tasks()
 def add_task():
 #   Prompts the user for a task description and adds it as a new incomplete task to the global tasks list.
     new_task_desc = input("Add task description: ")
-    new_task_dict = {'description': new_task_desc, 'done': False}
-    tasks.append(new_task_dict)
+    
+    if  new_task_desc == "":
+        print("invalid input")
+        return add_task()
+    
+    task_append_confirmation = input("Are you sure you want to add this?(yes or no)")
+    match task_append_confirmation.lower():
+        case "yes":
+            new_task_dict = {'description': new_task_desc, 'done': False}
+            tasks.append(new_task_dict)
+        case "no":
+            print("Task not added.")
+            return
+        case _:
+            print("Invalid answer, please answer with yes or no.")
+            return    
 
 def viewtask():
 #   Displays the current to-do list to the user, showing the index, status, and description of each task.
@@ -43,8 +57,17 @@ def delete_task():
     try:
         index_to_delete = int(input("Which task would you like to delete (enter the number)? ")) - 1
         if 0 <= index_to_delete < len(tasks):
-            deleted_task = tasks.pop(index_to_delete)
-            print(f"Task '{deleted_task['description']}' deleted.")
+            confirmation = input("Are you sure you want to delete this task?(yes or no)")
+            match confirmation.lower():
+                case 'yes':
+                    deleted_task = tasks.pop(index_to_delete)
+                    print(f"Task '{deleted_task['description']}' deleted.")
+                case 'no':
+                    print("Deletion canceled!")
+                    return
+                case _:
+                    print("Invalid answer, please answer with yes or no.")
+                    return
         else:
             print("Invalid task number. Please enter a valid number from the list.")
     except ValueError:
@@ -59,8 +82,17 @@ def mark_complete_task():
     try:
         index_to_complete = int(input("Which task would you like to mark as complete? (enter the number) ")) - 1
         if 0 <= index_to_complete < len(tasks):
-            tasks[index_to_complete]['done'] = True
-            print('Task marked as complete!')
+            confirmation = input("Are you sure you want to confirm this task?(yes or no)")
+            match confirmation:
+                case 'yes':
+                    tasks[index_to_complete]['done'] = True
+                    print('Task marked as complete!')
+                case 'no':
+                    print("Validation canceled")
+                    return
+                case _:
+                    print("Invalid answer, please answer with yes or no.")
+                    return
         else:
             print("Invalid task number. Please enter a valid number from the list.")
     except ValueError:
