@@ -135,6 +135,30 @@ def save_tasks():
     except Exception as e:
         print(f"Error saving tasks: {e}")
 
+def view_done_task():
+    if not tasks:
+        print('Your task list is empty!')
+    else : 
+        print("\n--- Done tasks ---")
+        for i, task in enumerate(tasks):
+            status = "[X]" if task['done'] else "[ ]"
+            if status == "[X]":
+                print(f"{i + 1}. {status} {task['description']} - Priority : {task['priority']}")
+        print("-----------------------\n")
+    
+
+def view_notdone_task():
+        if not tasks:
+            print('Your task list is empty!')
+        else : 
+            print("\n--- Pending tasks ---")
+            for i, task in enumerate(tasks):
+                status = "[X]" if task['done'] else "[ ]"
+                if status == "[]":
+                    print(f"{i + 1}. {status} {task['description']} - Priority : {task['priority']}")
+            print("-----------------------\n")
+
+
 def main():
 #   The main function that runs the to-do list application loop, presenting a menu to the user.
     while True:
@@ -143,9 +167,11 @@ def main():
         print("2. View tasks")
         print("3. Delete task")
         print("4. Mark task as complete")
-        print("5. Exit")
+        print("5. View done tasks")
+        print("6. View pending tasks")
+        print("7. Exit")
 
-        choice = input("Enter your choice (1-5): ")
+        choice = input("Enter your choice (1-6): ")
         match choice:
             case '1':
                 add_task()
@@ -156,6 +182,10 @@ def main():
             case '4':
                 mark_complete_task()
             case '5':
+                view_done_task()
+            case '6':
+                view_notdone_task()
+            case '7':
                 save_tasks()
                 print("Exiting to-do list application. Goodbye!")
                 break
